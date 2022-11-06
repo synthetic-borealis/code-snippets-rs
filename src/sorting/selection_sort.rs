@@ -1,19 +1,18 @@
-pub fn bubble_sort<T>(v: &mut Vec<T>)
+pub fn selection_sort<T>(v: &mut Vec<T>)
 where
     T: Ord,
 {
-    loop {
-        let mut swaps = 0;
+    for i in 0..v.len() - 1 {
+        let mut min_idx: usize = i;
 
-        for i in 0..v.len() - 1 {
-            if v[i] > v[i + 1] {
-                v.swap(i, i + 1);
-                swaps += 1;
+        for j in i..v.len() {
+            if v[j] < v[min_idx] {
+                min_idx = j;
             }
         }
 
-        if swaps == 0 {
-            break;
+        if min_idx != i {
+            v.swap(i, min_idx);
         }
     }
 }
@@ -26,7 +25,7 @@ mod tests {
     fn sort_small_array() {
         let mut test_vector = vec![5, 1, 8, -12, 22, 9];
         let expected = vec![-12, 1, 5, 8, 9, 22];
-        bubble_sort(&mut test_vector);
+        selection_sort(&mut test_vector);
         assert_eq!(test_vector, expected);
     }
 }
